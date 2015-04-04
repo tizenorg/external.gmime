@@ -1,5 +1,5 @@
 # Note that this is NOT a relocatable package
-%define ver      2.6.15
+%define ver     2.6.15
 %define enable_mono 0
 %define enable_gtk_doc 0
 
@@ -26,7 +26,9 @@ URL: http://spruce.sourceforge.net/gmime/
 Source: gmime-%{version}.tar.bz2
 
 Requires: glib2 >= 2.12.0
-BuildRequires: glib2-devel >= 2.12.0
+Requires(post):    /sbin/ldconfig
+Requires(postun):  /sbin/ldconfig
+BuildRequires:  glib2-devel >= 2.12.0
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(zlib)
@@ -66,24 +68,27 @@ cp -p ./COPYING %{buildroot}/usr/share/license/gmime/COPYING
 %clean
 rm -rf %{buildroot}
 
+%postun
+/sbin/ldconfig
+
 %files
 %defattr(-, root, root)
 
 #%doc doc/html/* AUTHORS ChangeLog NEWS README COPYING TODO
 #%{_prefix}/bin/*
 #%{_prefix}/lib/*.sh
-/usr/lib/libgmime*
+%{_prefix}/lib/libgmime*
 %{_prefix}/share/license/gmime/*
-%exclude /usr/lib/*.a
-%exclude /usr/lib/*.la
+%exclude %{_prefix}/lib/*.a
+%exclude %{_prefix}/lib/*.la
 
 
 %files devel
 %{_includedir}/gmime-2.6/gmime/*.h
-/usr/lib/libgmime*
-/usr/lib/pkgconfig/*.pc
-%exclude /usr/lib/*.a
-%exclude /usr/lib/*.la
+%{_prefix}/lib/libgmime*
+%{_prefix}/lib/pkgconfig/*.pc
+%exclude %{_prefix}/lib/*.a
+%exclude %{_prefix}/lib/*.la
 
 %changelog
 * Mon Jun 17 2013 Minsoo Kim <minnsoo.kim@samsung.com>

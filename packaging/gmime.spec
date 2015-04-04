@@ -72,18 +72,18 @@ rm -rf %{buildroot}
 #%doc doc/html/* AUTHORS ChangeLog NEWS README COPYING TODO
 #%{_prefix}/bin/*
 #%{_prefix}/lib/*.sh
-%{_libdir}/libgmime*
+/usr/lib/libgmime*
 %{_prefix}/share/license/gmime/*
-%exclude %{_libdir}/*.a
-%exclude %{_libdir}/*.la
+%exclude /usr/lib/*.a
+%exclude /usr/lib/*.la
 
 
 %files devel
 %{_includedir}/gmime-2.6/gmime/*.h
-%{_libdir}/libgmime*
-%{_libdir}/pkgconfig/*.pc
-%exclude %{_libdir}/*.a
-%exclude %{_libdir}/*.la
+/usr/lib/libgmime*
+/usr/lib/pkgconfig/*.pc
+%exclude /usr/lib/*.a
+%exclude /usr/lib/*.la
 
 %changelog
 * Mon Jun 17 2013 Minsoo Kim <minnsoo.kim@samsung.com>

@@ -1,5 +1,5 @@
 # Note that this is NOT a relocatable package
-%define ver      2.6.15
+%define ver      2.6.20
 %define enable_mono 0
 %define enable_gtk_doc 0
 
@@ -24,6 +24,14 @@ Group: Development/Libraries
 URL: http://spruce.sourceforge.net/gmime/
 
 Source: gmime-%{version}.tar.bz2
+
+%if "%{?tizen_profile_name}" == "wearable"
+ExcludeArch: %{arm} %ix86 x86_64
+%endif
+
+%if "%{?tizen_profile_name}" == "tv"
+ExcludeArch: %{arm} %ix86 x86_64
+%endif
 
 Requires: glib2 >= 2.12.0
 BuildRequires: glib2-devel >= 2.12.0
